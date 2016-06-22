@@ -38,24 +38,24 @@ this is a computercraft LUA script that monitors everything about a draconic rea
 * run network cable to all 3 modems
 * install this code via running the install script using these commands :
 
-    ```
-    > pastebin get Ls1Wg3QQ install
-    > install
-    ```
-  * modify `startup` if you wish to configure/alter any variables mentioned in the feature list, you'll find them at the top of the file
-    ```
-    > startup
-    ```
-  * you should see stats in your term, and on your monitor
+```
+> pastebin get Ls1Wg3QQ install
+> install
+```
+* modify `startup` if you wish to configure/alter any variables mentioned in the feature list, you'll find them at the top of the file
+```
+> startup
+```
+* you should see stats in your term, and on your monitor
 
 ### upgrading to the latest version
-  * right click your computer
-  * hold ctrl+t until you get a `>`
-   
-    ```
-    > install
-    > startup
-    ```
+* right click your computer
+* hold ctrl+t until you get a `>`
+
+```
+> install
+> startup
+```
 
 
 
