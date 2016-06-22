@@ -89,14 +89,18 @@ while true do
 
   -- buttons!
 
-  f.draw_text(mon, 2, 8, " < ", colors.black, colors.gray) -- 2,8-4,8
-  f.draw_text(mon, 6, 8, " << ", colors.black, colors.gray) -- 6,8-8,8
-  f.draw_text(mon, 11, 8, "<<<", colors.black, colors.gray) -- 11,8-14,8
+  f.draw_text(mon, 2, 8, " < ", colors.white, colors.gray) -- 2,8-4,8
+  f.draw_text(mon, 6, 8, " << ", colors.white, colors.gray) -- 6,8-8,8
+  f.draw_text(mon, 11, 8, "<<<", colors.white, colors.gray) -- 11,8-14,8
 
-  f.draw_text(mon, 24, 8, " > ", colors.black, colors.gray)
-  f.draw_text(mon, 20, 8, " >> ", colors.black, colors.gray)
-  f.draw_text(mon, 16, 8, ">>>", colors.black, colors.gray)
+  f.draw_text(mon, 25, 8, " > ", colors.white, colors.gray)
+  f.draw_text(mon, 20, 8, " >> ", colors.white, colors.gray)
+  f.draw_text(mon, 16, 8, ">>>", colors.white, colors.gray)
 
+  event, side, xPos, yPos = os.pullEvent("monitor_touch")
+  print(event .. " => Side: " .. tostring(side) .. ", " ..
+    "X: " .. tostring(xPos) .. ", " ..
+    "Y: " .. tostring(yPos))
 
 	f.draw_text_lr(mon, 2, 9, 1, "Input Gate", f.format_int(inputfluxgate.getSignalLowFlow()) .. " rf/t", colors.white, colors.blue, colors.black)
 
