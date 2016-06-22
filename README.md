@@ -1,2 +1,42 @@
+
 ![](examples/1.jpg)
 > *status*: currently stable, writing documentation
+
+
+# drmon
+monitor and failsafe automation for your draconic reactor
+
+### what is this
+this is a computercraft LUA script that monitors everything about a draconic reactor, with a couple features to help keep it from exploding
+
+### features
+* uses a 3x3 advanced computer monitor to display all the stats of your reactor
+* regulates the input gate for the targeted field strength of 50%
+  * adjustable
+* immediate shutdown and charge upon your field strength going below 20%
+  * adjustable
+  * reactor will activate upon a successful charge
+* immediate shutdown when your temperature goes above 8000C
+  * adjustable
+  * reactor will actiavte upon temperature cooling down to 3000C
+    * adjustable
+
+### requirements
+ * one fully setup draconic reactor with fuel
+ * 1 advanced computer
+ * 9 advanced monitors
+ * 3 wired modems, wireless will not work
+ * a bunch of network cable
+
+### installation
+ * your reactor output flux gate must be setup so that one side of it and one of your stabilizers touches a side of the advanced computer
+  * by default, flux gate shoudl touch the right side, stabilizer should touch the back of the computer
+  * if you want to use different sides you need to modify `startup` after you have installed this and specify the sides
+
+
+
+
+
+
+ 
+
