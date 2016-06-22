@@ -27,14 +27,6 @@ function format_int(number)
   return minus .. int:reverse():gsub("^,", "") .. fraction
 end
 
-function clear()
-  term.clear()
-  term.setCursorPos(1,1)
-  mon.setBackgroundColor(colors.black)
-  mon.clear()
-  mon.setCursorPos(1,1)
-end
-
 -- monitor related
 
 --display text text on monitor, "mon" peripheral

@@ -90,6 +90,10 @@ function update()
 
     -- print out all the infos from .getReactorInfo() to term
 
+    if ri == nil then
+      error("reactor has an invalid setup")
+    end
+
     for k, v in pairs (ri) do
       print(k.. ": ".. v)
     end
