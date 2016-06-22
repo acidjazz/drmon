@@ -2,19 +2,27 @@
 --
 --
 
-local lib = "https://raw.githubusercontent.com/acidjazz/drmon/master/lib/f.lua"
-local startup = "https://raw.githubusercontent.com/acidjazz/drmon/master/drmon.lua"
-local libFile
-local startupFile
+local hastebin = "http://www.hastebin.com/raw/"
 
-http.get(lib)
-libFile = http.readAll()
+local libURL = "coxibesone.lua"
+local startupURL = "guxuhuvuju.lua"
+local lib, startup
+local libFile, startupFile
 
-http.get(startup)
-startupFile = http.readAll()
+fs.makeDir("lib")
 
-local file = fs.open("f", "w")
-file.write(libFile)
+lib = http.get(hastebin .. libURL)
+libFile = lib.readAll()
 
-local file = fs.open("startup", "w")
-file.write(startupFile)
+local file1 = fs.open("lib/f", "w")
+file1.write(libFile)
+file1.close()
+
+startup = http.get(hastebin .. startupURL)
+startupFile = startup.readAll()
+
+
+local file2 = fs.open("startup", "w")
+file2.write(startupFile)
+file2.close()
+

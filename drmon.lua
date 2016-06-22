@@ -144,7 +144,7 @@ while true do
 	end
 
   -- field strength is too dangerous, kill and it try and charge it before it blows
-	if fieldPercent <= 15 then
+	if fieldPercent <= 15 and ri.status == "online" then
 		action = "Field Strength < 15%"
 		reactor.stopReactor()
 		reactor.chargeReactor()
