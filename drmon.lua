@@ -6,6 +6,8 @@ local fluxgateSide = "right"
 local targetStrength = 50
 local maxTemperature = 7777
 
+local activateOnCharged = true
+
 -- please leave untouched from here on
 os.loadAPI("lib/f")
 
@@ -125,6 +127,11 @@ while true do
 	if ri.status == "charging" then
 		inputfluxgate.setSignalLowFlow(900000)
 		emergencyCharge = false
+	end
+
+	-- are we charged? lets activate
+	if ri.status == "chared" and activateOnCharged == true then
+		reactor.activateReactor()
 	end
 
 	-- are we on? regulate the input fludgate to our target field strength
