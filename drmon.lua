@@ -53,6 +53,8 @@ monX, monY = monitor.getSize()
 mon = {}
 mon.monitor,mon.X, mon.Y = monitor, monX, monY
 
+local t = os.startTimer()
+
 while true do 
 
 	f.clear(mon)
