@@ -81,6 +81,7 @@ while true do
         cFlow = cFlow+100000
       end
       fluxgate.setSignalLowFlow(cFlow)
+    end
   end
 
 	f.clear(mon)
