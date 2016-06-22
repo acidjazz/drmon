@@ -112,17 +112,21 @@ function update()
     f.draw_text_lr(mon, 2, 2, 1, "Reactor Status", string.upper(ri.status), colors.white, statusColor, colors.black)
 
     f.draw_text_lr(mon, 2, 4, 1, "Generation", f.format_int(ri.generationRate) .. " rf/t", colors.white, colors.lime, colors.black)
-    f.draw_text_lr(mon, 2, 6, 1, "Temperature", f.format_int(ri.temperature) .. "C", colors.white, colors.white, colors.black)
+
+    local tempColor = colors.red
+    if ri.temperature <= 5000 then tempColor = colors.green end
+    if ri.temperature >= 5000 and ri.temperature <= 6500 then tempColor = colors.orange end
+    f.draw_text_lr(mon, 2, 6, 1, "Temperature", f.format_int(ri.temperature) .. "C", colors.white, tempColor, colors.black)
 
     f.draw_text_lr(mon, 2, 7, 1, "Output Gate", f.format_int(fluxgate.getSignalLowFlow()) .. " rf/t", colors.white, colors.blue, colors.black)
 
-    -- buttons!
+    -- buttons
 
     -- 2,8-4,8 = -1000, 6,8-9,8 = -10000, 11,8-13,8 = -100000
     -- 16,8-18,8 = +1000, 20,8-24,8 = +10000, 25,8-28,8 = +100000
-    f.draw_text(mon, 2, 8, " < ", colors.white, colors.gray) -- 2,8-4,8
-    f.draw_text(mon, 6, 8, " << ", colors.white, colors.gray) -- 6,8-8,8
-    f.draw_text(mon, 11, 8, "<<<", colors.white, colors.gray) -- 11,8-14,8
+    f.draw_text(mon, 2, 8, " < ", colors.white, colors.gray)
+    f.draw_text(mon, 6, 8, " << ", colors.white, colors.gray)
+    f.draw_text(mon, 11, 8, "<<<", colors.white, colors.gray)
 
     f.draw_text(mon, 16, 8, ">>>", colors.white, colors.gray)
     f.draw_text(mon, 20, 8, " >> ", colors.white, colors.gray)
