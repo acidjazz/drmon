@@ -132,7 +132,7 @@ while true do
 
 	-- are we stopping from a shutdown and our temp is better? activate
 	if emergencyTemp == true and ri.status == "stopping" and ri.temperature < 3000 then
-		reactor.startReactor()
+		reactor.activateReactor()
 		emergencyTemp = false
 	end
 
