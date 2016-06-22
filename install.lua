@@ -2,8 +2,6 @@
 --
 --
 
---local hastebin = "http://www.hastebin.com/raw/"
-
 local libURL = "https://raw.githubusercontent.com/acidjazz/drmon/master/lib/f.lua"
 local startupURL = "https://raw.githubusercontent.com/acidjazz/drmon/master/drmon.lua"
 local lib, startup
