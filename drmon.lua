@@ -57,6 +57,14 @@ local t = os.startTimer(1)
 
 while true do 
 
+  -- button handler
+  event, side, xPos, yPos = os.pullEvent()
+  if event == "timer" then
+    t = os.startTimer(1)
+  else
+    error(event .. ":" .. side .. ":" .. xPos .. ":" .. yPos)
+  end
+
 	f.clear(mon)
 
 	ri = reactor.getReactorInfo()
@@ -99,12 +107,8 @@ while true do
   f.draw_text(mon, 20, 8, " >> ", colors.white, colors.gray)
   f.draw_text(mon, 16, 8, ">>>", colors.white, colors.gray)
 
-  event, side, xPos, yPos = os.pullEvent()
-  if event == "timer" then
-    t = os.startTimer(1)
-  else
-    error(event .. ":" .. side .. ":" .. xPos .. ":" .. yPos)
-  end
+
+
 
 	f.draw_text_lr(mon, 2, 9, 1, "Input Gate", f.format_int(inputfluxgate.getSignalLowFlow()) .. " rf/t", colors.white, colors.blue, colors.black)
 
