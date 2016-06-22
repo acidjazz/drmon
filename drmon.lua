@@ -53,16 +53,34 @@ monX, monY = monitor.getSize()
 mon = {}
 mon.monitor,mon.X, mon.Y = monitor, monX, monY
 
-local t = os.startTimer(1)
+local t = os.startTimer(0.05)
 
 while true do 
 
   -- button handler
   event, side, xPos, yPos = os.pullEvent()
   if event == "timer" then
-    t = os.startTimer(1)
-  else
-    error(event .. ":" .. side .. ":" .. xPos .. ":" .. yPos)
+    t = os.startTimer(0.05)
+  elseif event == "monitor_touch" then
+    -- error(event .. ":" .. side .. ":" .. xPos .. ":" .. yPos)
+    -- 2,8-4,8 = -1000, 6,8-9,8 = -10000, 11,8-13,8 = -100000
+    -- 16,8-18,8 = +1000, 20,8-24,8 = +10000, 25,8-28,8 = +100000
+    if yPos == 8 then
+      local cFlow = fluxgate.getSignalLowFlow()
+      if xPos >= 2 and xPos <= 4 then
+        cFlow = cFlow-1000
+      elseif xPos >= 6 and xPos <= 9 then
+        cFlow = cFlow-10000
+      elseif xPos >= 11 and xPos <= 13 then
+        cFLow = cFlow-100000
+      elseif xPos >= 16 and xPos <= 18 then
+        cFlow = cFlow+1000
+      elseif xPos >= 20 and xPos <= 24 then
+        cFlow = cFlow+10000
+      elseif xPos >= 25 and xPos <= 28 then
+        cFlow = cFlow+100000
+      end
+      fluxgate.setSignalLowFlow(cFlow)
   end
 
 	f.clear(mon)
@@ -99,13 +117,15 @@ while true do
 
   -- buttons!
 
+  -- 2,8-4,8 = -1000, 6,8-9,8 = -10000, 11,8-13,8 = -100000
+  -- 16,8-18,8 = +1000, 20,8-24,8 = +10000, 25,8-28,8 = +100000
   f.draw_text(mon, 2, 8, " < ", colors.white, colors.gray) -- 2,8-4,8
   f.draw_text(mon, 6, 8, " << ", colors.white, colors.gray) -- 6,8-8,8
   f.draw_text(mon, 11, 8, "<<<", colors.white, colors.gray) -- 11,8-14,8
 
-  f.draw_text(mon, 25, 8, " > ", colors.white, colors.gray)
-  f.draw_text(mon, 20, 8, " >> ", colors.white, colors.gray)
   f.draw_text(mon, 16, 8, ">>>", colors.white, colors.gray)
+  f.draw_text(mon, 20, 8, " >> ", colors.white, colors.gray)
+  f.draw_text(mon, 25, 8, " > ", colors.white, colors.gray)
 
 
 
