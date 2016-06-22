@@ -150,9 +150,9 @@ while true do
 		action = "Fuel below 10%, refuel"
 	end
 
-  -- field strength is too dangerous, kill and it try and charge it before it blows
+	-- field strength is too dangerous, kill and it try and charge it before it blows
 	if fieldPercent <= 15 and ri.status == "online" then
-		action = "Field Strength < 15%"
+		action = "Field Str < 15%"
 		reactor.stopReactor()
 		reactor.chargeReactor()
 		emergencyCharge = true
@@ -165,3 +165,4 @@ while true do
 
 	sleep(0.1)
 end
+
