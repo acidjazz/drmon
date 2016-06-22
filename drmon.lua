@@ -53,7 +53,7 @@ monX, monY = monitor.getSize()
 mon = {}
 mon.monitor,mon.X, mon.Y = monitor, monX, monY
 
-local t = os.startTimer()
+local t = os.startTimer(0.1)
 
 while true do 
 
@@ -99,10 +99,16 @@ while true do
   f.draw_text(mon, 20, 8, " >> ", colors.white, colors.gray)
   f.draw_text(mon, 16, 8, ">>>", colors.white, colors.gray)
 
-  event, side, xPos, yPos = os.pullEvent("monitor_touch")
+  event, side, xPos, yPos = os.pullEvent()
   print(event .. " => Side: " .. tostring(side) .. ", " ..
     "X: " .. tostring(xPos) .. ", " ..
     "Y: " .. tostring(yPos))
+  if event == "monitor_touch" then
+    error(side, xPos, yPos)
+  end
+  if event == "timer" then
+    t = os.startTimer(0.1)
+  end
 
 	f.draw_text_lr(mon, 2, 9, 1, "Input Gate", f.format_int(inputfluxgate.getSignalLowFlow()) .. " rf/t", colors.white, colors.blue, colors.black)
 
