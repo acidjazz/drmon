@@ -16,6 +16,8 @@ end
 
 function format_int(number)
 
+	if number == nil then number = 0 end
+
   local i, j, minus, int, fraction = tostring(number):find('([-]?)(%d+)([.]?%d*)')
   -- reverse the int-string and append a comma to all blocks of 3 digits
   int = int:reverse():gsub("(%d%d%d)", "%1,")
@@ -37,24 +39,29 @@ end
 
 --display text text on monitor, "mon" peripheral
 function draw_text(mon, x, y, text, text_color, bg_color)
-  mon.setBackgroundColor(bg_color)
-  mon.setTextColor(text_color)
-  mon.setCursorPos(x,y)
-  mon.write(text)
+  mon.monitor.setBackgroundColor(bg_color)
+  mon.monitor.setTextColor(text_color)
+  mon.monitor.setCursorPos(x,y)
+  mon.monitor.write(text)
 end
 
 function draw_text_right(mon, offset, y, text, text_color, bg_color)
-  mon.setBackgroundColor(bg_color)
-  mon.setTextColor(text_color)
-  mon.setCursorPos(monX-string.len(text)-offset,y)
-  mon.write(text)
+  mon.monitor.setBackgroundColor(bg_color)
+  mon.monitor.setTextColor(text_color)
+  mon.monitor.setCursorPos(mon.X-string.len(tostring(text))-offset,y)
+  mon.monitor.write(text)
+end
+
+function draw_text_lr(mon, x, y, offset, text1, text2, text1_color, text2_color, bg_color)
+	draw_text(mon, x, y, text1, text1_color, bg_color)
+	draw_text_right(mon, offset, y, text2, text2_color, bg_color)
 end
 
 --draw line on computer terminal
 function draw_line(mon, x, y, length, color)
-    mon.setBackgroundColor(color)
-    mon.setCursorPos(x,y)
-    mon.write(string.rep(" ", length))
+    mon.monitor.setBackgroundColor(color)
+    mon.monitor.setCursorPos(x,y)
+    mon.monitor.write(string.rep(" ", length))
 end
 
 --create progress bar
@@ -67,4 +74,12 @@ function progress_bar(mon, x, y, length, minVal, maxVal, bar_color, bg_color)
   draw_line(mon, x, y, barSize, bar_color) --progress so far
 end
 
+
+function clear(mon)
+  term.clear()
+  term.setCursorPos(1,1)
+  mon.monitor.setBackgroundColor(colors.black)
+  mon.monitor.clear()
+  mon.monitor.setCursorPos(1,1)
+end
 
