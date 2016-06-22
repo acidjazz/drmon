@@ -130,7 +130,7 @@ while true do
 	end
 
 	-- are we charged? lets activate
-	if ri.status == "chared" and activateOnCharged == true then
+	if ri.status == "charged" and activateOnCharged == true then
 		reactor.activateReactor()
 	end
 
