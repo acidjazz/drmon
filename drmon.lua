@@ -53,7 +53,7 @@ monX, monY = monitor.getSize()
 mon = {}
 mon.monitor,mon.X, mon.Y = monitor, monX, monY
 
-local t = os.startTimer(0.1)
+local t = os.startTimer(1)
 
 while true do 
 
@@ -101,9 +101,9 @@ while true do
 
   event, side, xPos, yPos = os.pullEvent()
   if event == "timer" then
-    t = os.startTimer(0.1)
+    t = os.startTimer(1)
   else
-    error(event, side, xPos, yPos)
+    error(event .. ":" .. side .. ":" .. xPos .. ":" .. yPos)
   end
 
 	f.draw_text_lr(mon, 2, 9, 1, "Input Gate", f.format_int(inputfluxgate.getSignalLowFlow()) .. " rf/t", colors.white, colors.blue, colors.black)
