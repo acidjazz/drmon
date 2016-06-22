@@ -85,7 +85,13 @@ while true do
 	f.draw_text_lr(mon, 2, 4, 1, "Generation", f.format_int(ri.generationRate) .. " rf/t", colors.white, colors.lime, colors.black)
 	f.draw_text_lr(mon, 2, 6, 1, "Temperature", f.format_int(ri.temperature) .. "C", colors.white, colors.white, colors.black)
 
-	f.draw_text_lr(mon, 2, 8, 1, "Output Gate", f.format_int(fluxgate.getSignalLowFlow()) .. " rf/t", colors.white, colors.blue, colors.black)
+	f.draw_text_lr(mon, 2, 7, 1, "Output Gate", f.format_int(fluxgate.getSignalLowFlow()) .. " rf/t", colors.white, colors.blue, colors.black)
+
+  -- buttons!
+
+  f.draw_text(mon, 2, 8, " < ", colors.black, colors.gay)
+  f.draw_text(mon, 6, 8, " << ", colors.black, colors.gay)
+  f.draw_text(mon, 12, 8, " <<< ", colors.black, colors.gay)
 	f.draw_text_lr(mon, 2, 9, 1, "Input Gate", f.format_int(inputfluxgate.getSignalLowFlow()) .. " rf/t", colors.white, colors.blue, colors.black)
 
 	local satPercent

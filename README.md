@@ -57,7 +57,3 @@ this is a computercraft LUA script that monitors everything about a draconic rea
 > startup
 ```
 
-
-
-
-
