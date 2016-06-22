@@ -1,5 +1,5 @@
 
-![](examples/1.jpg)
+![](examples/2.jpg)
 > *status*: currently stable, writing documentation
 
 
@@ -20,6 +20,9 @@ this is a computercraft LUA script that monitors everything about a draconic rea
   * adjustable
   * reactor will activate upon temperature cooling down to 3000C
     * adjustable
+
+* easily tweak your output flux gate via touchscreen
+  * +/-100k, 10k, and 1k increments
 
 ### requirements
 * one fully setup draconic reactor with fuel
