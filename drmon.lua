@@ -89,9 +89,9 @@ while true do
 
   -- buttons!
 
-  f.draw_text(mon, 2, 8, " < ", colors.black, colors.gay)
-  f.draw_text(mon, 6, 8, " << ", colors.black, colors.gay)
-  f.draw_text(mon, 12, 8, " <<< ", colors.black, colors.gay)
+  f.draw_text(mon, 2, 8, " < ", colors.black, colors.gray)
+  f.draw_text(mon, 6, 8, " << ", colors.black, colors.gray)
+  f.draw_text(mon, 12, 8, " <<< ", colors.black, colors.gray)
 	f.draw_text_lr(mon, 2, 9, 1, "Input Gate", f.format_int(inputfluxgate.getSignalLowFlow()) .. " rf/t", colors.white, colors.blue, colors.black)
 
 	local satPercent
