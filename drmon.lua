@@ -4,7 +4,7 @@ local reactorSide = "back"
 local fluxgateSide = "right"
 
 local targetStrength = 50
-local maxTemperature = 7777
+local maxTemperature = 8000
 
 local activateOnCharged = true
 
@@ -25,6 +25,7 @@ local ri
 -- last performed action
 local action = "None since reboot"
 local emergencyCharge = false
+local emergencyTemp = false
 
 
 monitor = f.periphSearch("monitor")
@@ -129,6 +130,12 @@ while true do
 		emergencyCharge = false
 	end
 
+	-- are we stopping from a shutdown and our temp is better? activate
+	if emergencyTemp == true and ri.status == "stopping" and ri.temperature < 3000 then
+		reactor.startReactor()
+		emergencyTemp = false
+	end
+
 	-- are we charged? lets activate
 	if ri.status == "charged" and activateOnCharged == true then
 		reactor.activateReactor()
@@ -161,6 +168,7 @@ while true do
 	if ri.temperature > maxTemperature then
 		reactor.stopReactor()
 		action = "Temp > " .. maxTemperature
+    emergencyTemp = true
 	end
 
 	sleep(0.1)

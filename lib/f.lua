@@ -59,6 +59,9 @@ end
 
 --draw line on computer terminal
 function draw_line(mon, x, y, length, color)
+    if length < 0 then
+      length = 0
+    end
     mon.monitor.setBackgroundColor(color)
     mon.monitor.setCursorPos(x,y)
     mon.monitor.write(string.rep(" ", length))
