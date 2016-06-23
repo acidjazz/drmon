@@ -226,8 +226,8 @@ function update()
     fieldPercent = math.ceil(ri.fieldStrength * 0.000001 * 100)*.01
 
     fieldColor = colors.red
-    if fieldPercent > 70 then fieldColor = colors.red end
-    if fieldPercent < 70 and fieldPercent > 30 then fieldColor = colors.orange end
+    if fieldPercent > 50 then fieldColor = colors.green end
+    if fieldPercent < 50 and fieldPercent > 30 then fieldColor = colors.orange end
 
     if autoInputGate == 1 then 
       f.draw_text_lr(mon, 2, 14, 1, "Field Strength T:" .. targetStrength, fieldPercent .. "%", colors.white, fieldColor, colors.black)
