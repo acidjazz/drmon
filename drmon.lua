@@ -238,7 +238,7 @@ function update()
 
     local fuelPercent, fuelColor
 
-    fuelPercent = 100 - math.ceil(ri.fuelConversion / ri.maxFuelConversion * 100)*.01
+    fuelPercent = 100 - math.ceil(ri.fuelConversion / ri.maxFuelConversion * 100)
 
     fuelColor = colors.red
 
