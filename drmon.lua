@@ -226,7 +226,7 @@ function update()
     fieldPercent = math.ceil(ri.fieldStrength / ri.maxFieldStrength * 10000)*.01
 
     fieldColor = colors.red
-    if fieldPercent > 50 then fieldColor = colors.green end
+    if fieldPercent >= 50 then fieldColor = colors.green end
     if fieldPercent < 50 and fieldPercent > 30 then fieldColor = colors.orange end
 
     if autoInputGate == 1 then 
