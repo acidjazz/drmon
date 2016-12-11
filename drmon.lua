@@ -223,7 +223,7 @@ function update()
     f.progress_bar(mon, 2, 12, mon.X-2, satPercent, 100, colors.blue, colors.gray)
 
     local fieldPercent, fieldColor
-    fieldPercent = math.ceil(ri.fieldStrength * 0.000001 * 100)*.01
+    fieldPercent = math.ceil(ri.fieldStrength / ri.maxFieldStrength * 10000)*.01
 
     fieldColor = colors.red
     if fieldPercent > 50 then fieldColor = colors.green end
