@@ -217,7 +217,7 @@ function update()
     end
 
     local satPercent
-    satPercent = math.ceil(ri.energySaturation * 0.0000001 * 100)*.01
+    satPercent = math.ceil(ri.energySaturation / ri.maxEnergySaturation * 10000)*.01
 
     f.draw_text_lr(mon, 2, 11, 1, "Energy Saturation", satPercent .. "%", colors.white, colors.white, colors.black)
     f.progress_bar(mon, 2, 12, mon.X-2, satPercent, 100, colors.blue, colors.gray)
