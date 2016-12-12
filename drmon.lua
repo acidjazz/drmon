@@ -242,7 +242,7 @@ function update()
 
     fuelColor = colors.red
 
-    if fuelPercent > 70 then fuelColor = colors.green end
+    if fuelPercent >= 70 then fuelColor = colors.green end
     if fuelPercent < 70 and fuelPercent > 30 then fuelColor = colors.orange end
 
     f.draw_text_lr(mon, 2, 17, 1, "Fuel ", fuelPercent .. "%", colors.white, fuelColor, colors.black)
