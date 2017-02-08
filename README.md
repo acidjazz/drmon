@@ -60,3 +60,5 @@ this is a computercraft LUA script that monitors everything about a draconic rea
 > startup
 ```
 
+### known issues
+* there is a problem with skyfactory 2.5 and pastebin, see workarounds [here](https://github.com/acidjazz/drmon/issues/9#issuecomment-277910288)
