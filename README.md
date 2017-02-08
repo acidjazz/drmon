@@ -10,8 +10,8 @@ monitor and failsafe automation for your draconic reactor
 this is a computercraft LUA script that monitors everything about a draconic reactor, with a couple features to help keep it from exploding
 
 ### features
-* uses a 3x3 advanced computer monitor to display all the stats of your reactor
-* regulates the input gate for the targeted field strength of 50%
+* uses a 3x3 advanced computer touchscreen monitor to interact with your reactor
+* automated regulation of the input gate for the targeted field strength of 50%
   * adjustable
 * immediate shutdown and charge upon your field strength going below 20%
   * adjustable
@@ -21,7 +21,7 @@ this is a computercraft LUA script that monitors everything about a draconic rea
   * reactor will activate upon temperature cooling down to 3000C
     * adjustable
 
-* easily tweak your output flux gate via touchscreen
+* easily tweak your output flux gate via touchscreen buttons
   * +/-100k, 10k, and 1k increments
 
 ### requirements
