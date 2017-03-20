@@ -9,6 +9,10 @@ monitor and failsafe automation for your draconic reactor
 ### what is this
 this is a computercraft LUA script that monitors everything about a draconic reactor, with a couple features to help keep it from exploding
 
+
+### tutorial
+you can find a very well made youtube tutorial on how to set this up [here](https://www.youtube.com/watch?v=8rBhQP1xqEU) , thank you [The MindCrafters](https://www.youtube.com/channel/UCf2wEy4_BbYpAQcgvN26OaQ)
+
 ### features
 * uses a 3x3 advanced computer touchscreen monitor to interact with your reactor
 * automated regulation of the input gate for the targeted field strength of 50%
