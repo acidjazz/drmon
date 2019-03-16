@@ -36,3 +36,5 @@ I have done the following before creating this issue;
 - [ ] Searched Github for previous issues of my problem
 - [ ] I am using Minecraft 1.7.10
 - [ ] I am using the latest version of Draconic Evolution (v1.0.2h)
+
+Describe your issue:
