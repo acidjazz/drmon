@@ -33,7 +33,7 @@ local action = "None since reboot"
 local emergencyCharge = false
 local emergencyTemp = false
 local finallycharged = 0
-local userStop = 1
+local userStop = -1
 
 monitor = f.periphSearch("monitor")
 inputfluxgate = f.periphSearch("flux_gate")
@@ -93,12 +93,17 @@ function buttons()
     event, side, xPos, yPos = os.pullEvent("monitor_touch")
 
     if yPos == 2 and xPos >= mon.X-1-string.len(ri.status) and xPos<=mon.X-2then
-      if ri.status == "cold" then
+      if userStop == -1 then
         reactor.chargeReactor()
         userStop = 0
-      else
+      elseif userStop == 0 then
         reactor.stopReactor()
         userStop = 1
+      elseif userStop == 1 then
+        reactor.chargeReactor()
+        reactor.activateReactor()
+        userStop = 0
+
       end
     end
 
@@ -193,6 +198,7 @@ function update()
     end
     print("Output Gate: ", fluxgate.getSignalLowFlow())
     print("Input Gate: ", inputfluxgate.getSignalLowFlow())
+    print("UserStop", tostring(userStop))
 
     -- monitor output
 
@@ -277,6 +283,10 @@ function update()
       reactor.chargeReactor()
     end
     
+    if userStop == -1 and ri.status ~= "cold" then
+      userStop = 0
+    end
+
     -- are we charging? open the floodgates
     if ri.status == "warming_up" then
       inputfluxgate.setSignalLowFlow(900000)
