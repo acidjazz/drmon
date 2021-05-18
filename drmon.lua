@@ -92,6 +92,7 @@ function buttons()
     -- button handler
     event, side, xPos, yPos = os.pullEvent("monitor_touch")
 
+    -- User star/stop button
     if yPos == 2 and xPos >= mon.X-1-string.len(ri.status) and xPos<=mon.X-2then
       if userStop == -1 then
         reactor.chargeReactor()
@@ -283,6 +284,7 @@ function update()
       reactor.chargeReactor()
     end
     
+    --If the reactor is already started user has started it
     if userStop == -1 and ri.status ~= "cold" then
       userStop = 0
     end
