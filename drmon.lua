@@ -108,6 +108,11 @@ function buttons()
       end
     end
 
+    --Match Output and Generation
+    if yPos == 8 and xPos == 14 then
+      fluxgate.setSignalLowFlow(ri.generationRate)
+    end
+
     -- output gate controls
     -- 2-4 = -1000, 6-9 = -10000, 10-12,8 = -100000
     -- 17-19 = +1000, 21-23 = +10000, 25-27 = +100000
@@ -234,6 +239,7 @@ function update()
 
     -- buttons
     drawButtons(8)
+    f.draw_text(mon, 14, 8, "G", colors.white, colors.gray)
 
     f.draw_text_lr(mon, 2, 9, 1, "Input Gate", f.format_int(inputfluxgate.getSignalLowFlow()) .. " rf/t", colors.white, colors.blue, colors.black)
 
