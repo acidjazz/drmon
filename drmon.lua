@@ -32,6 +32,8 @@ local ri
 local action = "None since reboot"
 local emergencyCharge = false
 local emergencyTemp = false
+local finallycharged = 0
+local userStop = -1
 
 monitor = f.periphSearch("monitor")
 inputfluxgate = f.periphSearch("flux_gate")
@@ -39,19 +41,19 @@ fluxgate = peripheral.wrap(fluxgateSide)
 reactor = peripheral.wrap(reactorSide)
 
 if monitor == null then
-	error("No valid monitor was found")
+  error("No valid monitor was found")
 end
 
 if fluxgate == null then
-	error("No valid fluxgate was found")
+  error("No valid fluxgate was found")
 end
 
 if reactor == null then
-	error("No valid reactor was found")
+  error("No valid reactor was found")
 end
 
 if inputfluxgate == null then
-	error("No valid flux gate was found")
+  error("No valid flux gate was found")
 end
 
 monX, monY = monitor.getSize()
@@ -89,6 +91,27 @@ function buttons()
   while true do
     -- button handler
     event, side, xPos, yPos = os.pullEvent("monitor_touch")
+
+    -- User star/stop button
+    if yPos == 2 and xPos >= mon.X-1-string.len(ri.status) and xPos<=mon.X-2then
+      if userStop == -1 then
+        reactor.chargeReactor()
+        userStop = 0
+      elseif userStop == 0 then
+        reactor.stopReactor()
+        userStop = 1
+      elseif userStop == 1 then
+        reactor.chargeReactor()
+        reactor.activateReactor()
+        userStop = 0
+
+      end
+    end
+
+    --Match Output and Generation
+    if yPos == 8 and xPos == 14 then
+      fluxgate.setSignalLowFlow(ri.generationRate)
+    end
 
     -- output gate controls
     -- 2-4 = -1000, 6-9 = -10000, 10-12,8 = -100000
@@ -142,6 +165,8 @@ function buttons()
       save_config()
     end
 
+
+
   end
 end
 
@@ -175,10 +200,11 @@ function update()
     end
 
     for k, v in pairs (ri) do
-      print(k.. ": ".. v)
+      print(k.. ": ".. tostring(v))
     end
     print("Output Gate: ", fluxgate.getSignalLowFlow())
     print("Input Gate: ", inputfluxgate.getSignalLowFlow())
+    print("UserStop", tostring(userStop))
 
     -- monitor output
 
@@ -194,6 +220,13 @@ function update()
     end
 
     f.draw_text_lr(mon, 2, 2, 1, "Reactor Status", string.upper(ri.status), colors.white, statusColor, colors.black)
+    if ri.status == "cold" then
+      f.draw_text_right(mon, 1, 2, string.upper(ri.status), colors.white, colors.red)
+    elseif ri.status == "cooling" then
+      f.draw_text_right(mon, 1, 2, string.upper(ri.status), colors.white, colors.orange)
+    else
+      f.draw_text_right(mon, 1, 2, string.upper(ri.status), colors.white, colors.green)
+    end
 
     f.draw_text_lr(mon, 2, 4, 1, "Generation", f.format_int(ri.generationRate) .. " rf/t", colors.white, colors.lime, colors.black)
 
@@ -206,6 +239,7 @@ function update()
 
     -- buttons
     drawButtons(8)
+    f.draw_text(mon, 14, 8, "G", colors.white, colors.gray)
 
     f.draw_text_lr(mon, 2, 9, 1, "Input Gate", f.format_int(inputfluxgate.getSignalLowFlow()) .. " rf/t", colors.white, colors.blue, colors.black)
 
@@ -256,8 +290,13 @@ function update()
       reactor.chargeReactor()
     end
     
+    --If the reactor is already started user has started it
+    if userStop == -1 and ri.status ~= "cold" then
+      userStop = 0
+    end
+
     -- are we charging? open the floodgates
-    if ri.status == "charging" then
+    if ri.status == "warming_up" then
       inputfluxgate.setSignalLowFlow(900000)
       emergencyCharge = false
     end
@@ -268,14 +307,19 @@ function update()
       emergencyTemp = false
     end
 
+    if ri.status == "warming_up" and finallycharged == 0 and ri.temperature > 2000 and ri.temperature < safeTemperature then
+      finallycharged = 1
+    end
+
     -- are we charged? lets activate
-    if ri.status == "charged" and activateOnCharged == 1 then
+    if ri.status == "warming_up" and finallycharged == 1 and activateOnCharged == 1 then
       reactor.activateReactor()
+      finallycharged = 0
     end
 
     -- are we on? regulate the input fludgate to our target field strength
     -- or set it to our saved setting since we are on manual
-    if ri.status == "online" then
+    if ri.status == "running" or ri.status == "cooling"  then
       if autoInputGate == 1 then 
         fluxval = ri.fieldDrainRate / (1 - (targetStrength/100) )
         print("Target Gate: ".. fluxval)
@@ -295,7 +339,7 @@ function update()
     end
 
     -- field strength is too dangerous, kill and it try and charge it before it blows
-    if fieldPercent <= lowestFieldPercent and ri.status == "online" then
+    if fieldPercent <= lowestFieldPercent and ri.status == "running" then
       action = "Field Str < " ..lowestFieldPercent.."%"
       reactor.stopReactor()
       reactor.chargeReactor()
@@ -314,4 +358,3 @@ function update()
 end
 
 parallel.waitForAny(buttons, update)
-
